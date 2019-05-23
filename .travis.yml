@@ -1,0 +1,15 @@
+---
+dist: xenial
+sudo: required
+group: edge
+services: docker
+language: python
+python: 3.7
+env:
+  - SCENERIO=default
+install: pip install ansible git+https://github.com/dmlb2000/molecule.git@fix-1788-add-pre-commit-linter docker-py pre-commit pylint pep257
+before_install:
+  - cd ..
+  - ln -s ansible-pacifica-docker pacifica-docker
+  - cd pacifica-docker
+script: molecule test -s $SCENERIO
